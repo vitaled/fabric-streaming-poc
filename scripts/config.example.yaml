@@ -1,0 +1,14 @@
+# Fake Data Generator Configuration
+# Copy this file to config.yaml and customize as needed
+
+# Number of days to simulate
+days: 3
+
+# Number of log entries per day
+entries: 100
+
+# Start date in YYYY-MM-DD format
+start_date: "2026-01-01"
+
+# Output directory for generated log files
+output_dir: "./output"

@@ -1,0 +1,83 @@
+# Event Hub Log Sender Configuration
+# Copy this file to eventhub_config.yaml and customize as needed
+
+# =============================================================================
+# Connection Settings
+# =============================================================================
+
+# Event Hub connection string (required if not using Entra ID authentication)
+# Can also be set via EVENTHUB_CONNECTION_STRING environment variable
+# connection_string: "Endpoint=sb://ehns-contoso.servicebus.windows.net/;SharedAccessKeyName=send-rule;SharedAccessKey=YOUR_KEY_HERE;EntityPath=contoso-logs"
+connection_string: "<your-event-hub-connection-string>"
+# Event Hub name (optional if EntityPath is in connection string)
+# Can also be set via EVENTHUB_NAME environment variable
+eventhub_name: "<your-event-hub-name>"
+
+# =============================================================================
+# Entra ID Authentication (alternative to connection string)
+# =============================================================================
+
+# For Entra ID authentication, uncomment the following settings:
+
+# Fully qualified namespace (required for Entra ID auth)
+namespace: "<your-event-hub-namespace>.servicebus.windows.net"
+
+# Authentication method (choose one):
+# - 'default': Uses DefaultAzureCredential (tries multiple methods automatically)
+# - 'client_secret': Service principal with client ID and secret
+# - 'interactive': Opens browser for interactive login
+# - 'cli': Uses Azure CLI credentials (must be logged in with 'az login')
+# - 'managed_identity': Uses Azure Managed Identity
+#auth_method: "default"
+
+# For 'client_secret' authentication (service principal):
+# tenant_id: "your-tenant-id"
+# client_id: "your-client-id"
+# client_secret: "your-client-secret"
+
+# For 'managed_identity' with user-assigned identity (optional):
+# client_id: "user-assigned-managed-identity-client-id"
+
+# Legacy option (use auth_method instead):
+# use_managed_identity: true
+
+# =============================================================================
+# Mode Settings
+# =============================================================================
+
+# Sending mode: 'batch' or 'continuous'
+# - batch: Send historical events with timestamps distributed across a time range
+# - continuous: Stream events in real-time at a configurable rate
+mode: "batch"
+
+# =============================================================================
+# Batch Mode Settings
+# =============================================================================
+
+# Start datetime in ISO format (default: calculated from duration_hours before end)
+# start: "2026-01-19T00:00:00"
+
+# End datetime in ISO format (default: now)
+# end: "2026-01-20T00:00:00"
+
+# Duration in hours if start/end not specified (default: 1)
+duration_hours: 1
+
+# Total number of events to send (default: auto-calculate based on time range)
+# total_events: 10000
+
+# Number of events per batch (default: 100)
+events_per_batch: 100
+
+# Delay in seconds between batches (default: 0)
+delay_between_batches: 0.0
+
+# =============================================================================
+# Continuous Mode Settings
+# =============================================================================
+
+# Target events per second (default: 10)
+events_per_second: 10
+
+# Duration in seconds (default: indefinite, run until Ctrl+C)
+# duration_seconds: 300
