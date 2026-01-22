@@ -1,0 +1,28 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and update with your values
+
+# Required: Your Azure Subscription ID
+subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# Required: Fabric Capacity Administrators (UPNs or Object IDs)
+fabric_admins = [
+  "admin@yourtenant.onmicrosoft.com"
+]
+
+# Optional: Override defaults
+resource_group_name  = "rg-fabric-contoso"
+location             = "eastus"
+fabric_capacity_name = "fabriccapcontoso"
+fabric_sku           = "F2"
+
+workspace_name        = "contoso Analytics Workspace"
+workspace_description = "Microsoft Fabric workspace for contoso analytics"
+
+lakehouse_name        = "contoso_lakehouse"
+lakehouse_description = "Central lakehouse for contoso data"
+
+tags = {
+  Environment = "Development"
+  Project     = "contoso"
+  ManagedBy   = "Terraform"
+}

@@ -1,0 +1,54 @@
+{
+  "sources": [
+    {
+      "name": "CustomAppSource",
+      "type": "CustomEndpoint",
+      "properties": {
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      }
+    }
+  ],
+  "destinations": [
+    {
+      "name": "EventhouseDestination",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "{{ .WorkspaceID }}",
+        "itemId": "{{ .DatabaseID }}",
+        "databaseName": "{{ .DatabaseName }}",
+        "tableName": "{{ .TableName }}",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "{{ .EventstreamName }}-stream"
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "name": "{{ .EventstreamName }}-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "CustomAppSource"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}
